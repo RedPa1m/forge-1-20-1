@@ -20,6 +20,8 @@ import software.bernie.geckolib.core.object.PlayState;
 
 public class ObserveEntity extends Monster implements GeoEntity {
 
+    private int TimeAlive = 0;
+
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     public ObserveEntity(EntityType<? extends Monster> pEntityType, Level pLevel) {
@@ -63,4 +65,13 @@ public class ObserveEntity extends Monster implements GeoEntity {
         return false;
     }
 
+    @Override
+    public void tick() {
+        TimeAlive++;
+        if (TimeAlive == 600) {
+            this.remove(RemovalReason.KILLED);
+            TimeAlive = 0;
+        }
+        super.tick();
+    }
 }
