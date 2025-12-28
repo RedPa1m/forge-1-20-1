@@ -15,6 +15,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.redpalm.starless.entity.ModEntities;
 import net.redpalm.starless.entity.client.ObserveRenderer;
+import net.redpalm.starless.event.EventHandler;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
 
@@ -38,6 +39,7 @@ public class Starless
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(EventHandler.class);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

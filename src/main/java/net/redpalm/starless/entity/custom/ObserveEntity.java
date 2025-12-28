@@ -1,10 +1,13 @@
 package net.redpalm.starless.entity.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -13,15 +16,16 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraftforge.common.MinecraftForge;
+import net.redpalm.starless.event.EventHandler;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 
-
 public class ObserveEntity extends Monster implements GeoEntity {
-
     private int TimeAlive = 0;
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -73,6 +77,9 @@ public class ObserveEntity extends Monster implements GeoEntity {
         if (TimeAlive == 600) {
             this.remove(RemovalReason.KILLED);
             TimeAlive = 0;
+        }
+        if (level().getNearestPlayer(this, 50D) != null) {
+            getLookControl().setLookAt(level().getNearestPlayer(this, 50D));
         }
         super.tick();
     }
