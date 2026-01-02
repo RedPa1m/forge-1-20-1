@@ -28,7 +28,7 @@ public class EventHandler extends Event {
     @SubscribeEvent
     public static void levelTickEvent (TickEvent.LevelTickEvent tick) {
         if (tick.phase == TickEvent.Phase.END) {
-        if (!tick.level.isClientSide && tick.level.getDayTime() % 200 == 0 && random.nextInt(10) == 0) {
+        if (!tick.level.isClientSide && tick.level.getDayTime() % 300 == 0 && random.nextInt(10) == 0) {
             ObserveEntity entity = ModEntities.OBSERVE.get().create(tick.level);
             if (entity != null) {
                 entity.setPos(0, 80, 0);

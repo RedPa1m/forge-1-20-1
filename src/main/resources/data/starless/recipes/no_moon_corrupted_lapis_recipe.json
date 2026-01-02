@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "#Q#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:lapis_block"
+    },
+    "Q": {
+      "item": "no_moon:void_fragment"
+    }
+  },
+  "result": {
+    "count": 16,
+    "item": "starless:corrupted_lapis_block"
+  }
+}
