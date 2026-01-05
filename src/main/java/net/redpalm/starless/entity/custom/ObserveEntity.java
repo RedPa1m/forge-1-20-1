@@ -86,4 +86,9 @@ public class ObserveEntity extends Monster implements GeoEntity {
             return super.hurt(pSource, pAmount);
         }
     }
+
+    @Override
+    protected boolean shouldDespawnInPeaceful() {
+        return false;
+    }
 }
