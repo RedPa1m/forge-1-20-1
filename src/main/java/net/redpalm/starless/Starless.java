@@ -17,6 +17,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.redpalm.starless.block.ModBlocks;
 import net.redpalm.starless.entity.ModEntities;
 import net.redpalm.starless.entity.client.ObserveRenderer;
+import net.redpalm.starless.entity.client.WrongedRenderer;
 import net.redpalm.starless.event.EventHandler;
 import net.redpalm.starless.item.ModItems;
 import org.slf4j.Logger;
@@ -76,6 +77,7 @@ public class Starless
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             EntityRenderers.register(ModEntities.OBSERVE.get(), ObserveRenderer::new);
+            EntityRenderers.register(ModEntities.WRONGED.get(), WrongedRenderer::new);
         }
     }
 }
