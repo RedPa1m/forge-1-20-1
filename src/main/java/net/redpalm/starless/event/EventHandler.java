@@ -1,20 +1,15 @@
 package net.redpalm.starless.event;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -31,7 +26,6 @@ import static net.redpalm.starless.misc.WrongedItemList.wrongedItemList;
 @Mod.EventBusSubscriber(modid = Starless.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EventHandler extends Event {
     static Random random = new Random();
-    static ServerLevel serverlevel;
     static int randomIndex;
 
     // Attempt to spawn Observe after some amount of ticks with 10% chance
@@ -48,15 +42,11 @@ public class EventHandler extends Event {
             ObserveEntity entity = ModEntities.OBSERVE.get().create(tick.level);
             if (entity == null) return;
 
-            if (serverlevel != null) {
-                Player player = serverlevel.getRandomPlayer();
-                if (player == null) return;
-                spawnEntity(7, 7, entity, player, tick);
-            } else {
-                Player player = Minecraft.getInstance().player;
-                if (player == null) return;
-                spawnEntity(7, 7, entity, player, tick);
-            }
+            Player player = tick.level.getServer().getPlayerList().getPlayers().get
+                    (random.nextInt(tick.level.getServer().getPlayerList().getPlayers().size()));
+
+            spawnEntity(10, 10, entity, player, tick);
+
             tick.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(),
                     SoundEvents.AMBIENT_CAVE.get(), SoundSource.HOSTILE, 1.5f, 0.85f);
         }
@@ -77,15 +67,11 @@ public class EventHandler extends Event {
             WrongedEntity entity = ModEntities.WRONGED.get().create(tick.level);
             if (entity == null) return;
 
-            if (serverlevel != null) {
-                Player player = serverlevel.getRandomPlayer();
-                if (player == null) return;
-                spawnEntity(10, 10, entity, player, tick);
-            } else {
-                Player player = Minecraft.getInstance().player;
-                if (player == null) return;
-                spawnEntity(10, 10, entity, player, tick);
-            }
+            Player player = tick.level.getServer().getPlayerList().getPlayers().get
+                    (random.nextInt(tick.level.getServer().getPlayerList().getPlayers().size()));
+
+            spawnEntity(10, 10, entity, player, tick);
+
             tick.level.getServer().getPlayerList().broadcastSystemMessage
                     (Component.literal("<Wrong.ed> Hello."), false);
 
